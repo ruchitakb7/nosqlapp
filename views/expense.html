@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Page</title>
+    <link rel="shortcut icon" href="#" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        #user{
+           
+            width:7%;
+            height: 90px;
+            margin-left:88%;
+        }
+        img{
+            height:80px;
+        }
+        #title{
+            font-family:Arial, Helvetica, sans-serif;
+            font-weight: bold;
+            color:rgb(16, 154, 208);
+            text-decoration-line: underline;
+        }
+    </style>
+</head>
+<body>
+    <center><h2 id="title" style="margin-top: 20px;">Expense Tracker App</h2></center>
+    <div id="user">
+        <center>   <img src="https://media.istockphoto.com/id/1345388323/vector/human-silhouette-isolated-vector-icon.jpg?s=612x612&w=0&k=20&c=a1wg9LYywdqDUG-t9rifrf16XEdWZbWe7ajuYxJTxEI=">
+        <br>
+        <p id="profile">
+            <button class="btn btn-danger" id="login" onclick="login() " style="font-size: 10px;">Log In</button>
+         </p> </center>
+       
+      </div>
+   <br>
+    <div class="container mt-5">
+        <form id="expenseForm" class="mt-3">
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="expenseAmount">Choose Expense Amount:</label>
+                    <input type="number" class="form-control" id="expenseAmount" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="expenseDescription">Choose Description:</label>
+                    <input type="text" class="form-control" id="expenseDescription" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="expenseCategory">Choose Category:</label>
+                    <select class="form-control" id="expenseCategory" required>
+                        <option value="" selected disabled>Choose...</option>
+                        <option value="food">Food</option>
+                        <option value="shopping">Shopping</option>
+                        <option value="travel">Travel</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-info btn-block">Add Expense</button><br>
+        </form>
+        <div id="premium" style="color: green; font-weight: bold;">
+      <!--    <button type="submit" class="btn btn-success" id="rzrpay">Buy Premium Membership</button> --> 
+        </div>
+        
+      <br>
+      <div id="pagerecord" style="display: none;">
+      <!-- <input type="number" class="form-control" style="width: 150px;" id="pagesizeval" required min="1" max="10" placeholder="select number">--> 
+       
+        <select class="form-control"  style="width: 150px;" id="pagesizeval" required>
+          
+            <option value="5" selected>5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+        </select>
+        <button class="btn btn-info" id="pagebtn">show</button><br>
+        </div>
+
+      <div id="expenseTable" style="display: none;">
+      <center><h2 style="font-family:'Times New Roman', Times, serif;font-weight: bold;color: skyblue;">Expense Data</h2></center>
+        <table class="table" id="table">
+            <thead>
+                <th>Sr.No.</th>
+                <th>ExpenseAmount</th>
+                <th>ExpenseDescription</th>
+                <th>ExpenseCategory</th>
+                <th>Action</th>
+            </thead>
+            <tbody id="Tbody">
+
+            </tbody>
+        </table>
+    </div>
+        <br>
+        <div id="pagination" class="pagination">
+
+        </div>
+        <br>
+        <center>  <div id="leaderboard" style="width: 30%; display: none;" >
+      <h2  style="border: 2px;color: skyblue;font-weight: bold;font-family: 'Times New Roman', Times, serif;"> LeaderBoard</h2> 
+        <table class="table">
+            <thead>
+               <th>Name</th>
+               <th>Total Expense(INR)</th>
+            </thead>
+            <tbody id="tbody">
+
+            </tbody>
+
+        </table>
+    </div> </center> 
+
+    </div>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="expense.js"></script>
+</body>
+</html>

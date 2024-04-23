@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="shortcut icon" href="#" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5 " style="width: 500px;" >
+    <center>   <h3>Login Form</h3>  </center>
+    <br>
+      <form id="loginForm">
+        <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" required>
+            </div>  
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Log In</button>
+            <br>
+            <label for="signup">New User?</label>
+            <a href="/signup" id="signup">Sign Up</a>
+            <div class="form-group" style="color: red; font-family: Arial, Helvetica, sans-serif;" id="errordiv" >
+             <p id="p"></p>
+            </div>
+            <div id="password">
+                <button type="submit" class="btn btn-danger btn-block" id="pswbtn">Forgot Password?</button>
+            </div>
+        </form>
+   
+    </div>  
+
+    <!-- Axios CDN for making HTTP requests -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- Your JavaScript file -->
+    <script src="../login.js"></script>
+</body>
+</html>
