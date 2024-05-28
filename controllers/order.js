@@ -22,7 +22,7 @@ const purchasepremium = async (req, res) => {
             if(err){
                 throw new Error(JSON.stringify(err));
             }
-            Order.create({orderid:order.id, status: 'PENDING',userId:req.user._id}).then(()=>{
+            Order.create({orderid:order.id, status: 'PENDING',userId:req.user.id}).then(()=>{
                 return res.status(201).json({order, key_id:rzp.key_id});
             })
             .catch(err => {
@@ -48,11 +48,11 @@ const updateTransactionStatus = async (req, res) => {
         }
         
         const promise1 = order.updateOne({paymentid:payment_id, status:'SUCEESSFUL'})
-        const promise2 =  req.user.update({ispremiumuser:true})
+        const promise2 =  req.user.updateOne({ispremiumuser:true})
                     
         await Promise.all([promise1, promise2]);
         
-        return res.status(202).json({success:true, message:"Transaction Successful",token:generateAccessToken(req.user._id, req.user.name, true)})
+        return res.status(202).json({success:true, message:"Transaction Successful",token:generateAccessToken(req.user.id, req.user.name, true)})
                 
     } catch(err) {
         console.log(err);

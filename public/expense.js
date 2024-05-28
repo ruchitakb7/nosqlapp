@@ -45,8 +45,9 @@ async function addExpense(e)
         try{
            const token = localStorage.getItem('token');
            if(token){
+            console.log(token)
             const response=await axios.post('/addExpense',p,{headers:{"Authorization":token}});
-            console.log('Data has benn added successfully')
+            console.log('Data has been added successfully')
             userprofile()
           
             location.href='/home';
@@ -81,6 +82,7 @@ async function expenseSheet(e)  //refresh
    
     try{
         const token = localStorage.getItem('token');
+     //   userprofile()
         if(token){
            
             checkrecordpage()
@@ -93,7 +95,7 @@ async function expenseSheet(e)  //refresh
             showPremiumusermessage(res.data)
             generatepage(res.data.lastPage)
             if(res.data.allExpenses.length!=0){
-                updateUsertble()       
+             //  updateUsertble()       
                 printSheet(res.data)
             }
                  
@@ -175,9 +177,10 @@ async function printSheet(expenseData)
 
 async function deleteExpense(p)
 {
+    console.log(p)
     try{
         const token = localStorage.getItem('token');  
-        const response= await axios.delete(`/deleteexpense/${p.id}`,{headers:{"Authorization":token}})
+        const response= await axios.delete(`/deleteexpense/${p._id}`,{headers:{"Authorization":token}})
         console.log('Data has been deleted successfully')
         location.href='/home';
         
@@ -263,15 +266,15 @@ async function deleteExpense(p)
    
 }
 
-async function updateUsertble()
-{
-    try{
-        const token=localStorage.getItem('token');
-        const userexpesnes= await axios.get('/updateTotalExpense',{headers:{"Authorization":token}});   
-        console.log('Data has updated')    
-    }
-    catch(e){console.log(e)}
-}
+// async function updateUsertble()
+// {
+//     try{
+//         const token=localStorage.getItem('token');
+//         const userexpesnes= await axios.get('/updateTotalExpense',{headers:{"Authorization":token}});   
+//         console.log('Data has updated')    
+//     }
+//     catch(e){console.log(e)}
+// }
 
 async function getdataforleaderboard(){
 try{

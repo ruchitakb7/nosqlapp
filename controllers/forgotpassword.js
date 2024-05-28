@@ -30,8 +30,12 @@ exports.forgotpassword = async (req, res, next) => {
         if (user) {
 
             const id= UUID.v4();
+            let forgetId
 
             await forgotPasswordRequest.create({id,isActive:true,userId:user._id})
+            .then((user)=>{
+                forgetId=user._id
+            })
             .catch((e)=>{
                 throw new Error(e)
             })
@@ -55,11 +59,11 @@ exports.forgotpassword = async (req, res, next) => {
                 subject: "reset password email", sender,
                 to: receivers,
                 htmlContent: `<h1>click on the link below to reset the password</h1><br>
-                <a href="http://localhost:${process.env.port}/password/resetpassword/${id}">Reset password</a>`
+                <a href="http://localhost:${process.env.port}/password/resetpassword/${forgetId}">Reset password</a>`
                    
             })
                 .then((result) => {
-                    console.log(result);
+                //   console.log(result)
                     return res.status(202).json({
                         success: true,
                         message: "reset password link has been sent to your email",
@@ -84,18 +88,50 @@ exports.forgotpassword = async (req, res, next) => {
 exports.resetpassword= async(req,res,next) =>{
 
     const id =  req.params.id;
-    const forgetpassword=await forgotPasswordRequest.findOne({ _id:id});
-  
-
+  //  console.log('id',id)
+    const forgetpassword=await forgotPasswordRequest.findOne({ _id :id});
+   
         if(forgetpassword){
-            await forgotPasswordRequest.updateOne({ isActive: false},{_id:forgetpassword._id});
-            res.status(200).send(`<html>  
+            await forgetpassword.updateOne({ isActive: false})
+            .then(()=>{
+              //  console.log(result)
+                res.status(200).send(/*`<html>  
+                <body>
+                 <form action="/password/updatepassword/${id}" method="get">
+                     <label for="newpassword">Enter New password</label><br>
+                     <input name="newpassword" type="password" required></input>
+                     <br>
+                     <button>Reset Password</button>
+                 </form>
+                 <script>
+                     async function formsubmitted(e){
+                         e.preventDefault();
+                         try{
+                             const res=await axios.get('/password/updatepassword/${id}');
+                             alert(res.data.message)
+
+                         }
+                        catch(e){alert(e)}   
+                     }
+                 </script>
+                 <body>
+             </html>` */
+            ` <html>  
+                                   <head>
+                                   <link rel="stylesheet" href="/css/login.css">
+                                   </head>
                                    <body>
-                                    <form action="/password/updatepassword/${id}" method="get">
-                                        <label for="newpassword">Enter New password</label><br>
-                                        <input name="newpassword" type="password" required></input>
-                                        <br>
-                                        <button>Reset Password</button>
+                                   <div class="header">
+                                   <center><h1>Reset Password</h1> </center>
+                                    </div>
+
+                                   <div id="forgotpassword">
+                                    <form action="/password/updatepassword/${id}" method="get" >
+                                    <label for="newpassword">New Password :</label>
+                                    <input name="newpassword" type="password" required></input>
+                                        <br><br><br>
+                                   <center> <button>Reset Password</button></center>
+                                        <div>
                                     </form>
                                     <script>
                                         async function formsubmitted(e){
@@ -103,6 +139,7 @@ exports.resetpassword= async(req,res,next) =>{
                                             try{
                                                 const res=await axios.get('/password/updatepassword/${id}');
                                                 alert(res.data.message)
+                                                window.location.href="/login.html"
 
                                             }
                                            catch(e){alert(e)}   
@@ -110,8 +147,11 @@ exports.resetpassword= async(req,res,next) =>{
                                     </script>
                                     <body>
                                 </html>`
-                                )
-            res.end()
+             )
+res.end()
+            })
+            .catch(e=>{console.log(e)})
+           
 
         }
 
@@ -123,9 +163,12 @@ exports.updatepassword= async(req,res,next) =>{
         const id= req.params.id;
        // const newpsw= req.query;
         const {newpassword} = req.query;
+        
        
 
         const forgotpassworddata = await forgotPasswordRequest.findOne({_id:id})
+      //  console.log(forgotpassworddata)
+
          const userdata = await User.findOne({_id:forgotpassworddata.userId})
          if(userdata)
          {
@@ -136,8 +179,9 @@ exports.updatepassword= async(req,res,next) =>{
                     console.log(err)
                     throw new Error(err)
                 }
-               
-                const updateuserdata= await User.update({password:hash},{_id:userdata._id});
+               console.log(hash)
+                const updateuserdata= await userdata.updateOne({password:hash});
+                console.log('updated',updateuserdata)
             
                return res.status(201).json({message:'password has been updated',success:true})
             // res.redirect('/login')

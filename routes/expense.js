@@ -13,7 +13,7 @@ router.get('/Expensesheet',authontication.authenticate,expenseController.getExpe
 
 router.delete('/deleteexpense/:id',authontication.authenticate,expenseController.deleteExpense);
 
-router.get('/updateTotalExpense',authontication.authenticate,expenseController.updateTotalExpense);
+//router.get('/updateTotalExpense',authontication.authenticate,expenseController.updateTotalExpense);
 
 router.get('/user/download',authontication.authenticate,expenseController.downloadexpense);
 

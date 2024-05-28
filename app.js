@@ -7,8 +7,6 @@ const dotenv = require('dotenv');
 dotenv.config()
 
 
-
-//const seq = require('./util/database.js');
 const User= require('./models/user.js');
 const Expense= require('./models/expense.js');
 const Order = require('./models/order.js');
@@ -34,27 +32,8 @@ const forgotpassword= require('./routes/forgotpassword.js');
 app.use(forgotpassword);
 
 
-/*User.hasMany(Expense);
-Expense.belongsTo(User);
 
-User.hasMany(Order);
-Order.belongsTo(User);
-
-
-User.hasMany(forgotpasswordRequest)
-forgotpasswordRequest.belongsTo(User);
-
-seq.sync()
-.then(res=>
-   { 
-    app.listen(process.env.port);  
-})                               
-.catch((e)=>{
-   console.log(e)
-
-}) */
-
-mongoose.connect('mongodb+srv://ruchitakb7:itkUTB0fpkreZHDH@cluster0.7iolqg4.mongodb.net/expense?retryWrites=true&w=majority&appName=Cluster0')
+mongoose.connect(process.env.link)
 .then(()=>{
    app.listen(3000)
    console.log('connected')

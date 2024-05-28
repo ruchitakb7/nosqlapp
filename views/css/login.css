@@ -1,0 +1,28 @@
+
+.container{
+  
+    
+}
+
+.header {
+    overflow: hidden;
+    font-weight: bold;
+    color: black;
+    padding: 20px 10px;
+    
+  }
+
+  #password{
+    color: black
+  }
+
+  #forgotpassword
+  {
+    border: 1px solid black;
+    margin-top: 0px;
+    width:400px;
+    padding:20px;
+    align-items: center;
+    margin-left: 35%;
+
+  }

@@ -1,5 +1,8 @@
+
+const Expense= require('../models/expense')
+
 const getExpenses = (req) => {
-    return req.user.getExpenses();
+    return Expense.find({userId:req.user.id});
 }
 
 module.exports = {

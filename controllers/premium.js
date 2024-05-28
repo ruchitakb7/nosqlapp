@@ -6,12 +6,18 @@ const sequelize=require('../util/database');
 
  exports.getleaderboarddata= async (req,res,next)=>{
     try{
-        const userdata= await User.find({
-          attributes:['name','totalExpenses'],
-            order:[['totalExpenses','DESC']]   
-        })
+         await User.find()
+         .select('name totalExpenses')
+         .sort({totalExpenses:-1})
+          .then((userdata)=>{
+            res.json(userdata)
+          })
+
+         // attributes:['name','totalExpenses'],
+          //  order:[['totalExpenses','DESC']]   
+      //  })
       
-        res.json(userdata)
+        
     }
     catch(e){
         console.log(e)

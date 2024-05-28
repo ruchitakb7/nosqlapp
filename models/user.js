@@ -21,8 +21,8 @@ const userSchema = new Schema ({
         required:true
     },
     ispremiumuser: {
-        type: Boolean,
-        default: 0
+        type: Boolean
+    //    default: 0
       },
       totalExpenses :{
       type:Number,
